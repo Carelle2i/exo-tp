@@ -1,0 +1,7 @@
+C:\_dev\Cours\Architecture Logicielle\exo-tp\obj\Debug\net9.0\exo-tp.csproj.AssemblyReference.cache
+C:\_dev\Cours\Architecture Logicielle\exo-tp\obj\Debug\net9.0\exo-tp.GeneratedMSBuildEditorConfig.editorconfig
+C:\_dev\Cours\Architecture Logicielle\exo-tp\obj\Debug\net9.0\exo-tp.AssemblyInfoInputs.cache
+C:\_dev\Cours\Architecture Logicielle\exo-tp\obj\Debug\net9.0\exo-tp.AssemblyInfo.cs
+C:\_dev\Cours\Architecture Logicielle\exo-tp\obj\Debug\net9.0\exo-tp.csproj.CoreCompileInputs.cache
+C:\_dev\Cours\Architecture Logicielle\exo-tp\obj\Debug\net9.0\exo-tp.MvcApplicationPartsAssemblyInfo.cs
+C:\_dev\Cours\Architecture Logicielle\exo-tp\obj\Debug\net9.0\exo-tp.MvcApplicationPartsAssemblyInfo.cache

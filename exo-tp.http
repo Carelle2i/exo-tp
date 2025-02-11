@@ -1,0 +1,6 @@
+@exo_tp_HostAddress = http://localhost:5035
+
+GET {{exo_tp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

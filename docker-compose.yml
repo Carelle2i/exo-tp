@@ -1,0 +1,91 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: orderdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb_container
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  product-service:
+    build: ./ProductService
+    container_name: product_service_container
+    ports:
+      - "5001:5001"
+    depends_on:
+      - mongodb
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__MongoDb=mongodb://mongodb_container:27017/productdb
+
+  user-service:
+    build: ./UserService
+    container_name: user_service_container
+    ports:
+      - "5002:5002"
+    depends_on:
+      - mysql
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__MySQL=Server=mysql_container;Database=userdb;User=user;Password=password;
+
+  order-service:
+    build: ./OrderService
+    container_name: order_service_container
+    ports:
+      - "5003:5003"
+    depends_on:
+      - mysql
+      - product-service
+      - user-service
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__MySQL=Server=mysql_container;Database=orderdb;User=user;Password=password;
+      - Services__ProductService=http://product-service:5001
+      - Services__UserService=http://user-service:5002
+
+volumes:
+  mysql_data:
+  mongo_data:
+
+# Structure des fichiers :
+# - ProductService/
+#   - Controllers/
+#   - Models/
+#   - Services/
+#   - Repositories/
+#   - appsettings.json
+#   - Dockerfile
+# - UserService/
+#   - Controllers/
+#   - Models/
+#   - Services/
+#   - Repositories/
+#   - appsettings.json
+#   - Dockerfile
+# - OrderService/
+#   - Controllers/
+#   - Models/
+#   - Services/
+#   - Repositories/
+#   - DTOs/
+#   - appsettings.json
+#   - Dockerfile
